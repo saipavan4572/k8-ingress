@@ -1,0 +1,62 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app1
+  # these labels are deployment related labels
+  labels:
+    app: app1
+    purpose: ingress
+spec:
+  selector:
+    matchLabels:
+      app: app1
+      purpose: ingress
+  # pod definition
+  template:
+    metadata: 
+      labels:
+        app: app1
+        purpose: ingress
+    spec:
+      containers:
+      - name: app1
+        image: saipavan9594/app1:1.0
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1
+spec:
+  selector:
+    app: app1
+    purpose: ingress
+  ports:
+  - protocol: TCP
+    port: 80 #service-port
+    targetPort: 80 #target-port
+          
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+    alb.ingress.kubernetes.io/group.name: joindevops  #this annotation used to keep only ALB under joindevops group.
+    # kubernetes cluster will create internet-facing, ip based load balancer with some tags and group.
+spec:
+  ingressClassName: alb
+  rules:
+  - host: "app1.daws78s.online" # like ALB Rule
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: app1 # like ALB Target group
+            port:
+              number: 80
