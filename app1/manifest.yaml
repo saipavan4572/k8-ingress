@@ -45,7 +45,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
-    alb.ingress.kubernetes.io/group.name: saipavan9594  #this annotation used to keep only ALB under joindevops group.
+    alb.ingress.kubernetes.io/group.name: saipavan4572  #this annotation used to keep only ALB under joindevops group.
     # kubernetes cluster will create internet-facing, ip based load balancer with some tags and group.
 spec:
   ingressClassName: alb
