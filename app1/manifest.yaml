@@ -45,9 +45,9 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267158693:certificate/ee1442f7-225d-4eed-b417-04bd33995bf0
-    alb.ingress.kubernetes.io/listen-ports: '[ {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/group.name: expense  #this annotation used to keep only ALB under joindevops group.
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267158693:certificate/ee1442f7-225d-4eed-b417-04bd33995bf0
+    # alb.ingress.kubernetes.io/listen-ports: '[ {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/group.name: expensegroup  #this annotation used to keep only ALB under joindevops group.
     # kubernetes cluster will create internet-facing, ip based load balancer with some tags and group.
 spec:
   ingressClassName: alb
