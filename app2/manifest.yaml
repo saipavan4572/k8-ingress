@@ -47,7 +47,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267158693:certificate/6f1de1e8-8353-4445-9188-168a3f15b605
-    alb.ingress.kubernetes.io/listen-ports: '[ {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/listen-ports: '[ {"HTTPS": 443} ]'
     alb.ingress.kubernetes.io/group.name: expense
     # kubernetes cluster will create internet-facing, ip based load balancer with some tags and group.
 spec:
