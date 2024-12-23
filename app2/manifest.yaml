@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app2
+  name: app2-service
 spec:
   selector:
     app: app2
@@ -41,14 +41,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app2
+  name: app2-ingress
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267158693:certificate/6f1de1e8-8353-4445-9188-168a3f15b605
-    alb.ingress.kubernetes.io/listen-ports: '[ {"HTTPS": 443} ]'
-    alb.ingress.kubernetes.io/group.name: expense
+    alb.ingress.kubernetes.io/group.name: expense-ingress
     # kubernetes cluster will create internet-facing, ip based load balancer with some tags and group.
 spec:
   ingressClassName: alb
@@ -60,6 +58,8 @@ spec:
         path: "/"
         backend:
           service:
-            name: app2 # ALB Target group
+            name: app2-service # ALB Target group
             port:
               number: 80
+
+## Note: create route53 record for app2 --> app2.pspkdevops.online
