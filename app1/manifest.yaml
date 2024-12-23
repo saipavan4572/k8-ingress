@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app1
+  name: app1-service
 spec:                               ##usually here we give Type: LoadBalancer -- if we give here then it will create Classic Load Balancer. if we have multiple apps then for each app it will create Classic load balancer and also increase the cost. so we are running clusterIP - by default.
   selector:
     app: app1
@@ -41,15 +41,12 @@ spec:                               ##usually here we give Type: LoadBalancer --
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app1
+  name: app1-ingress
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
-    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267158693:certificate/6f1de1e8-8353-4445-9188-168a3f15b605
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267158693:certificate/96a37903-801d-41dc-854d-89efbf1be7a3
-    alb.ingress.kubernetes.io/listen-ports: '[ {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/group.name: expense  #this annotation used to keep only ALB under joindevops group.
+    alb.ingress.kubernetes.io/group.name: expense-ingress  #this annotation used to keep only ALB under joindevops group.
     # kubernetes cluster will create internet-facing, ip based load balancer with some tags and group.
 spec:
   ingressClassName: alb
@@ -61,6 +58,8 @@ spec:
         path: "/"
         backend:
           service:
-            name: app1 # like ALB Target group
+            name: app1-service # like ALB Target group
             port:
               number: 80
+
+## Note: create route53 record for app1 --> app1.pspkdevops.online
