@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: app1
-        image: saipavan9594/app1:1.0
+        image: saipavan9594/app1:v1.0
 
 ---
 apiVersion: v1
